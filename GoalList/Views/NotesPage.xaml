@@ -1,0 +1,149 @@
+<Page
+    x:Class="GoalList.Views.NotesPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="using:GoalList.Models"
+    xmlns:common="using:GoalList.Services"
+    mc:Ignorable="d">
+    <Page.Resources>
+        <common:ColorToSolidColorBrushValueConverter x:Key="ColorToSolidColorBrush_ValueConverter"/>
+    </Page.Resources>
+    <Grid
+        x:Name="ContentArea">
+
+        <Grid.RowDefinitions>
+            <RowDefinition x:Name="TitleRow" Height="48"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Background="{StaticResource AccentButtonBackground}">
+            <TextBlock
+            x:Name="TitlePage"
+            x:Uid="Profile_Title"
+            Text="Navigation Item 2"
+                Foreground="White"
+                Margin="25,0,0,0"
+            Style="{StaticResource PageTitleStyle}" />
+        </Grid>
+
+        <Grid 
+            Grid.Row="1" 
+            Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
+            <!--The SystemControlPageBackgroundChromeLowBrush background represents where you should place your content. 
+                Place your content here.-->
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="30*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="30*"/>
+                    <RowDefinition Height=".5*"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Column="1" Grid.Row="0" BorderThickness="1.5" BorderBrush="LightGray" Margin="0,25,0,0" Orientation="Horizontal" Tapped="WriteNoteClone_Tapped" HorizontalAlignment="Center" Width="330" IsTapEnabled="True" Name="WriteNoteClone" Height="45" Background="White">
+                    <TextBlock Foreground="Gray" Text="Take a note..." VerticalAlignment="Center" Margin="10,0,0,5" FontSize="16"/>
+                </StackPanel>
+
+                <StackPanel Visibility="Collapsed" Name="myStackPanel" Background="White" Margin="0,15,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" Grid.Row="0">
+                    <TextBox Margin="0,0,0,0" Padding="10,10,10,0" IsSpellCheckEnabled="False" CharacterSpacing="35" FontWeight="SemiLight" Style="{StaticResource NoteTextBox}" PlaceholderText="Take a note..." TextChanged="NewNoteTextBox_TextChanged" MaxLength="300" Width="330" Height="230" Name="NewNoteTextBox" AcceptsReturn="True" HorizontalAlignment="Stretch" TextWrapping="Wrap" ScrollViewer.VerticalScrollMode="Enabled" ScrollViewer.VerticalScrollBarVisibility="Auto" BorderThickness="1"/>
+                    <Button Name="MinimizeNoteButton" Click="MinimizeNoteButton_Click" Foreground="Black" Style="{StaticResource CompactDelete}" FontFamily="Segoe MDL2 Assets" Content="&#xE0E5;" FontSize="8" HorizontalAlignment="Right" Margin="0,-443,3,0"/>
+                    <Button Margin="0,-34,2,0" FontWeight="Normal" Style="{StaticResource CompactDelete}" FontSize="20" Content="Done" x:Name="AddButton" HorizontalAlignment="Right" Width="56" Height="30" Click="AddButton_Click"/>
+                    <TextBlock Name="CountTextBlock" Foreground="Gray" FontWeight="Light" FontSize="12" Text="300" HorizontalAlignment="Left" Margin="5,-20,0,0"/>
+                    <Button Style="{StaticResource CompactDelete}" Height="22" Width="22" FontSize="15" FontFamily="Segoe MDL2 Assets" Content="&#xE2B1;" HorizontalAlignment="Right" Margin="0,-30,72,0">
+                        <Button.Flyout>
+                            <Flyout x:Name="NewNoteColorFlyout" Opened="Flyout_Opened">
+                                <Flyout.FlyoutPresenterStyle>
+                                    <Style TargetType="FlyoutPresenter">
+                                        <Setter Property="Background" Value="Transparent"/>
+                                        <Setter Property="BorderBrush" Value="Transparent"/>
+                                    </Style>
+                                </Flyout.FlyoutPresenterStyle>
+                                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <StackPanel Orientation="Horizontal">
+                                        <ToggleButton FontFamily="Segoe MDL2 Assets" Style="{StaticResource WhiteToggleButton}" Name="WhiteNoteColorToggleButton" Checked="ToggleButton_Checked" Height="28" Width="28"/>
+                                        <ToggleButton FontFamily="Segoe MDL2 Assets" Style="{StaticResource RedToggleButton}" Checked="ToggleButton_Checked" Margin="5,0,0,0" Height="28" Width="28"/>
+                                        <ToggleButton FontFamily="Segoe MDL2 Assets" Style="{StaticResource YellowToggleButton}" Checked="ToggleButton_Checked" Margin="5,0,0,0" Height="28" Width="28"/>
+                                    </StackPanel>
+                                    <StackPanel  Margin="0,5,0,0" Orientation="Horizontal">
+                                        <ToggleButton FontFamily="Segoe MDL2 Assets" Style="{StaticResource GrayToggleButton}" Checked="ToggleButton_Checked" Height="28" Width="28"/>
+                                        <ToggleButton FontFamily="Segoe MDL2 Assets" Style="{StaticResource TealToggleButton}" Checked="ToggleButton_Checked" Margin="5,0,0,0" Height="28" Width="28"/>
+                                        <ToggleButton FontFamily="Segoe MDL2 Assets" Style="{StaticResource GreenToggleButton}" Checked="ToggleButton_Checked" Margin="5,0,0,0" Height="28" Width="28"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Flyout>
+                        </Button.Flyout>
+                    </Button>
+                </StackPanel>
+
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" VerticalScrollMode="Auto" HorizontalScrollMode="Disabled" VerticalAlignment="Top" Margin="0,15,0,0">
+                    <GridView Name="NotesGridView" VerticalAlignment="Stretch" HorizontalAlignment="Center" IsItemClickEnabled="False" SelectionMode="None" IsHitTestVisible="true" ItemsSource="{x:Bind notes}">
+                        <GridView.ItemTemplate>
+                            <DataTemplate x:DataType="local:Note">
+                                <StackPanel Height="Auto" Width="Auto">
+                                    <Grid Tag="{x:Bind NoteTag}" BorderThickness="1" BorderBrush="LightGray" Margin="10,10,0,0" VerticalAlignment="Stretch" Height="200" Background="{x:Bind NoteColor, Converter={StaticResource ColorToSolidColorBrush_ValueConverter}, Mode=TwoWay}">
+                                        <TextBox IsSpellCheckEnabled="False" TextChanged="NoteBodyTextBox_TextChanged" Tag="{x:Bind NoteTag}" PointerEntered="NoteBodyTextBox_PointerEntered" PointerExited="NoteBodyTextBox_PointerExited" Style="{StaticResource NoteTextBox}" CharacterSpacing="5" MaxLength="300" Name="NoteBodyTextBox" Background="Transparent" Width="370" BorderThickness="0" Padding="10,7,10,10" FontFamily="Segoe UI" FontWeight="Light" ScrollViewer.VerticalScrollMode="Enabled" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollMode="Disabled" Height="Auto" Text="{x:Bind Body, Mode=TwoWay}" TextWrapping="Wrap" Foreground="Black"/>
+                                    </Grid>
+                                    <Button Tag="{x:Bind NoteTag}" Style="{StaticResource CompactDelete}" Name="DeleteNoteButton" Click="DeleteNoteButton_Click" Padding="0" FontFamily="Segoe MDL2 Assets" FontSize="18" Content="&#xE74D;" Height="22" Width="22" HorizontalAlignment="Right" Margin="0,-30,1,0"/>
+                                    <TextBlock Visibility="Collapsed" Tag="{x:Bind NoteTag}" Name="CountOnNoteTextBlock" Text="{x:Bind CharactersLeft, Mode=TwoWay}" HorizontalAlignment="Left" Margin="15,-17,0,0" Foreground="Gray" FontSize="10"/>
+                                    <Button Tag="{x:Bind NoteTag}" Style="{StaticResource CompactDelete}" Height="18" Width="18" FontSize="13" FontFamily="Segoe MDL2 Assets" Content="&#xE2B1;" HorizontalAlignment="Right" Margin="0,-30,35,0">
+                                        <Button.Flyout>
+                                            <Flyout x:Name="ExistingNoteFlyout" Opened="Flyout_Opened_1">
+                                                <Flyout.FlyoutPresenterStyle>
+                                                    <Style TargetType="FlyoutPresenter">
+                                                        <Setter Property="Background" Value="Transparent"/>
+                                                        <Setter Property="BorderBrush" Value="Transparent"/>
+                                                    </Style>
+                                                </Flyout.FlyoutPresenterStyle>
+                                                <StackPanel Tag="{x:Bind NoteTag}" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <ToggleButton FontSize="12" FontFamily="Segoe MDL2 Assets" Style="{StaticResource WhiteToggleButton}" Checked="ToggleButton_Checked_1" Height="20" Width="20"/>
+                                                        <ToggleButton FontSize="12" FontFamily="Segoe MDL2 Assets" Style="{StaticResource RedToggleButton}" Checked="ToggleButton_Checked_1" Margin="2,0,0,0" Height="20" Width="20"/>
+                                                        <ToggleButton FontSize="12" FontFamily="Segoe MDL2 Assets" Style="{StaticResource YellowToggleButton}" Checked="ToggleButton_Checked_1" Margin="2,0,0,0" Height="20" Width="20"/>
+                                                    </StackPanel>
+                                                    <StackPanel  Margin="0,2,0,0" Orientation="Horizontal">
+                                                        <ToggleButton FontSize="12" FontFamily="Segoe MDL2 Assets" Style="{StaticResource GrayToggleButton}" Checked="ToggleButton_Checked_1" Height="20" Width="20"/>
+                                                        <ToggleButton FontSize="12" FontFamily="Segoe MDL2 Assets" Style="{StaticResource TealToggleButton}" Checked="ToggleButton_Checked_1" Margin="2,0,0,0" Height="20" Width="20"/>
+                                                        <ToggleButton FontSize="12" FontFamily="Segoe MDL2 Assets" Style="{StaticResource GreenToggleButton}" Checked="ToggleButton_Checked_1" Margin="2,0,0,0" Height="20" Width="20"/>
+                                                    </StackPanel>
+                                                </StackPanel>
+                                            </Flyout>
+                                        </Button.Flyout>
+                                    </Button>
+                                </StackPanel>
+                            </DataTemplate>
+                        </GridView.ItemTemplate>
+                    </GridView>
+                </ScrollViewer>
+            </Grid>
+        </Grid>
+
+        <!--  Adaptive triggers  -->
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="WindowStates">
+                <VisualState x:Name="WideState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="640"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="NotesGridView.HorizontalAlignment" Value="Center"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="NarrowState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="TitlePage.Margin" Value="48,0,12,7"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+    </Grid>
+</Page>

@@ -1,0 +1,30 @@
+﻿<ContentDialog 
+    x:Class="GoalList.Views.FirstRunDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="345"
+    d:DesignWidth="550"
+    PrimaryButtonText="Got it"
+    Foreground="White"
+    Background="{ThemeResource AccentButtonBackground}">
+    <ContentDialog.TitleTemplate>
+        <DataTemplate>
+            <StackPanel Orientation="Horizontal">
+                <Image Source="ms-appx:///Assets/StoreLogo.png" Width="40" Height="40" Margin="0"/>
+                <TextBlock Margin="50,0,0,0" Foreground="White" x:Uid="FirstRun_Title" Style="{StaticResource HeaderTextBlockStyle}" Text="Welcome"/>
+            </StackPanel>
+        </DataTemplate>
+    </ContentDialog.TitleTemplate>
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+        <StackPanel Margin="0,40,0,0">
+            <TextBlock FontWeight="SemiLight" FontSize="19" Foreground="White" x:Uid="FirstRun_Body" TextWrapping="WrapWholeWords">
+                <Run>Having todos and quick notes in your days needs to be written down so that you won't worry about remembering them, worry about achieving them. Just focus. Just do it.</Run><LineBreak/>
+                <Run>Also some quotes to boost your moto moto.</Run><LineBreak/>
+                <Run>Again, just do it!</Run>
+            </TextBlock>
+        </StackPanel>
+    </ScrollViewer>
+</ContentDialog>

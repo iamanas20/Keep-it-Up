@@ -1,0 +1,106 @@
+<Page
+    x:Class="GoalList.Views.SettingsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="48"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{StaticResource AccentButtonBackground}">
+            <TextBlock
+            x:Name="TitlePage"
+            x:Uid="Settings_Title"
+                Margin="25,0,0,0"
+            Style="{StaticResource PageTitleStyle}"
+            Foreground="White"/>
+        </Grid>
+
+        <ScrollViewer Grid.Row="1" VerticalScrollMode="Enabled" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Grid Margin="{StaticResource MediumLeftTopRightBottomMargin}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" Margin="0,16,0,0">
+                    <TextBlock
+                    x:Uid="Settings_Theme"
+                    Style="{StaticResource BodyTextStyle}"/>
+                    <ToggleSwitch
+                    x:Uid="Settings_ThemeToggle"
+                    IsOn="{x:Bind IsLightThemeEnabled, Mode=OneWay}"
+                    Toggled="ThemeToggle_Toggled"
+                    Margin="0,4,0,0">
+                    </ToggleSwitch>
+                </StackPanel>
+
+                <StackPanel Grid.Row="1" Margin="0,16,0,0">
+                    <TextBlock Text="Sound Effects" Style="{StaticResource BodyTextBlockStyle}"/>
+                    <ToggleSwitch IsOn="True" OffContent="Disabled" OnContent="Enabled" Name="SoundEffectsToggleSwitch" Toggled="SoundEffectsToggleSwitch_Toggled"/>
+                </StackPanel>
+
+                <StackPanel Margin="0,16,0,0" Grid.Row="2">
+                    <TextBlock Style="{StaticResource BodyTextStyle}" Text="Color"/>
+                    <StackPanel Orientation="Horizontal" Margin="0,16,0,0">
+                        <Button Tag="Accent" Click="Button_Click" Width="48" Height="48" Style="{StaticResource Accent}"/>
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="System accent color" Margin="10,0,0,0"/>
+                    </StackPanel>
+                    <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+                        <Button Tag="Accent1" Click="Button_Click" Width="48" Height="48" Style="{StaticResource 1}"/>
+                        <Button Tag="Accent1"  Click="Button_Click" Width="48" Height="48" Style="{StaticResource 2}" Background="#69797E" Margin="4,0,0,0"/>
+                        <Button Tag="Accent1"  Click="Button_Click" Width="48" Height="48" Style="{StaticResource 3}" Background="#018574" Margin="4,0,0,0"/>
+                        <Button Tag="Accent1"  Click="Button_Click" Width="48" Height="48" Style="{StaticResource 4}" Background="#4C4A48" Margin="4,0,0,0"/>
+                        <Button Tag="Accent1"  Click="Button_Click" Width="48" Height="48" Style="{StaticResource 5}" Background="#0078D7" Margin="4,0,0,0"/>
+                    </StackPanel>
+                    <StackPanel Margin="0,4,0,0" Orientation="Horizontal">
+                        <Button Tag="Accent1"  Click="Button_Click" Width="48" Height="48" Style="{StaticResource 6}" Background="#FF4343"/>
+                        <Button Tag="Accent1"  Click="Button_Click" Width="48" Height="48" Style="{StaticResource 7}" Background="#4A5459" Margin="4,0,0,0"/>
+                        <Button Tag="Accent1"  Click="Button_Click" Width="48" Height="48" Style="{StaticResource 8}" Background="#00B294" Margin="4,0,0,0"/>
+                        <Button Tag="Accent1"  Click="Button_Click" Width="48" Height="48" Style="{StaticResource 9}" Background="#7E735F" Margin="4,0,0,0"/>
+                        <Button Tag="Accent1"  Click="Button_Click" Width="48" Height="48" Style="{StaticResource 10}" Background="#0099BC" Margin="4,0,0,0"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <StackPanel Grid.Row="3" Margin="0,16,0,0">
+                    <TextBlock
+                    x:Uid="Settings_About"
+                    Style="{StaticResource BodyTextStyle}"/>
+                    <TextBlock
+                    Text="{x:Bind AppDescription, Mode=OneWay}"
+                    Style="{StaticResource BodyTextStyle}"
+                    Margin="0,4,0,0"/>
+                    <TextBlock
+                    x:Uid="Settings_AboutDescription"
+                    Style="{StaticResource BodyTextStyle}"/>
+                </StackPanel>
+            </Grid>
+
+        </ScrollViewer>
+
+        <!--  Adaptive triggers  -->
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="WindowStates">
+                <VisualState x:Name="WideState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="640"/>
+                    </VisualState.StateTriggers>
+                </VisualState>
+                <VisualState x:Name="NarrowState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="TitlePage.Margin" Value="48,0,12,7"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+    </Grid>
+</Page>
