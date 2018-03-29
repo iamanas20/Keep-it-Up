@@ -39,7 +39,7 @@ namespace GoalList.Views
             InitializeComponent();
             allGoals = new ObservableCollection<Goal>();
         }
-
+         
         /// <summary>
         ///     Handles the event of this page being navigated to from other pages!
         /// </summary>
