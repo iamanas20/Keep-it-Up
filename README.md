@@ -5,19 +5,20 @@ Wanna collaborate?
 
 # How is the app now?
 Keep Up is in the store and has todos taking and notes taking capabilities, this screenshot illustrates to you where it currently is:
-![note that the bakground color matches your accent color 😍](https://imgur.com/a/9nJvZze)
+
+![note that the bakground color matches your accent color](https://i.imgur.com/CPu4rxI.png)
 
 # How to contribute?
 You will need to use Visual Studio 2017 (updated to the latest version prefered) and the Windows 10 Build 16299 SDK. Simply clone the repo to get started.
-<p>Create a new branch at first and then make the changes you want, next, open a pull request so that we can discuss those changes and accept them, at last we will merge that branch with the _master branch 🙏</p>
+<p>Create a new branch at first and then make the changes you want, next, open a pull request so that we can discuss those changes and accept them, at last we will merge that branch with the master branch 🙏</p>
 <p>I highly recommend reading through these sets of articles: <a href="https://guides.github.com">GitHub guides</a></p>
 
 
 # What to Add:
 <ul>
-<li>Background process to keep updating weather without opening the app</li>
-<li>10 days weather</li>
-<li>Notifications about urgent weather notions</li>
+<li>Authentication capability</li>
+<li>To-dos and notes Reminders</li>
+<li>A complete text editor like notepad or maybe Google docs (we serious)</li>
 </ul>
 for now...
 
@@ -25,7 +26,8 @@ for now...
 <p>You can contact me at multiple places:</p>
 <p><a href="https://github.com/iamanas20/">GitHub</a></p>
 <p><a href="https://twitter.com/iamanas20/">Twitter</a></p>
-<p><a href="https://www.facebook.com/profile.php?id=100006315791645">Facebook</a></p>
+<p><a href="https://www.facebook.com/iamanas22">Facebook</a></p>
+<p><a href="https://www.instagram.com/iamanas22">Facebook</a></p>
 <p><a href="mailto:anaslatique@gmail.com?Subject=About%20GitHub" target="_top">Email</a></p>
 
 # License
