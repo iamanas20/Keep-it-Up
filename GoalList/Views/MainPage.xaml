@@ -6,6 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:custom="using:GoalList.Models"
     mc:Ignorable="d" KeyUp="MainPage_KeyUp">
+
     
     <Grid
         x:Name="ContentArea">
